@@ -96,7 +96,7 @@ class CardList extends React.Component {
         <div className='listbody'>
           {list.map(item => (
             <div key={item._id}>
-              <CardListItem handleRemove={this.handleRemove} handleUpdate={this.handleUpdateItem} _id={item._id} title={item.title}/>
+              <CardListItem onRemove={this.handleRemove} handleUpdate={this.handleUpdateItem} _id={item._id} title={item.title}/>
             </div>
           ))}
           <input value={newCardTitle} onChange={this.handleChange}/><button className='createButton' onClick={this.addCard} >create</button>
