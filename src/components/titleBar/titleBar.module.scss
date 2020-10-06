@@ -1,0 +1,16 @@
+.checked{
+  position: relative;
+  background:lightgray;
+  &:after{
+    content:'';
+    position: absolute;
+    left:0;
+    top:50%;
+    width:100%;
+    height:1px;
+    background:black;
+  }
+  .removeButton{
+    color:green;
+  }
+}

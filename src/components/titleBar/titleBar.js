@@ -1,5 +1,6 @@
 import React from 'react';
 import FlashApi from 'api/FlashApi';
+import styles from './titleBar.module.scss';
 
 class TitleBar extends React.Component {
   constructor(props) {
@@ -7,12 +8,27 @@ class TitleBar extends React.Component {
 
     this.handleRemove = this.handleRemove.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.handleCheck = this.handleCheck.bind(this);
+
+    this.state = {
+      checked:this.props.checked,
+    }
     
   }
   
 
   handleClick() {
     this.props.onClick();
+  }
+
+  async handleCheck(event) {
+    const checked = event.target.checked;
+    this.setState({checked:checked});
+    const data = {isDone:checked};
+    const {result} = await FlashApi.updateCard(this.props._id,data);
+    if(result) {
+      this.props.onCheck(data);
+    }
   }
 
   async handleRemove() {
@@ -23,10 +39,12 @@ class TitleBar extends React.Component {
   }
 
   render() {
+    const className = this.state.checked? styles.checked:styles;
     return (
-      <div>
+      <div className={className} >
+        <input type="checkbox" onChange={this.handleCheck} checked={this.state.checked}/>
         <span onClick={this.handleClick}> {this.props.title}</span>
-        <button onClick={this.handleRemove}>Remove</button>
+        <button className={styles.removeButton} onClick={this.handleRemove}>Remove</button>
       </div>
     )
   }

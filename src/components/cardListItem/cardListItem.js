@@ -49,7 +49,13 @@ class CardListItem extends React.Component {
   render() {
     if(!this.state.isFocused){
       return (
-        <TitleBar onClick={this.handleFocus} onRemove={this.handleRemove} title={this.state.title} _id={this.props._id}/>
+        <TitleBar
+          onClick={this.handleFocus}
+          onCheck={this.handleUpdate}
+          onRemove={this.handleRemove}
+          title={this.state.title}
+          checked={this.props.checked}
+          _id={this.props._id}/>
       );
     }
     else {
