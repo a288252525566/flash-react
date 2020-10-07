@@ -25,12 +25,19 @@ class FlashApi{
   }
 
   //取得卡片列表
-  static async getCardList() {
+  static async getCardList(parent_id) {
     let result = null;
     let error = null;
+    const data = {parent_id:parent_id};
     await fetch(
       process.env.REACT_APP_API_HOST+"card/list",
-      {method:'post'}
+      {
+        method:'post',
+        headers: new Headers({
+          'Content-Type': 'application/json'
+        }),
+        body:JSON.stringify(data)
+      }
     )
       .then(res => res.json())
       .then(
