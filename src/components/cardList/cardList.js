@@ -21,9 +21,6 @@ class CardList extends React.Component {
     };
   }
 
-  componentDidMount() {
-    this.loadList();
-  }
 
   async loadList() {
     const {result,error} = await FlashApi.getCardList();
@@ -90,6 +87,7 @@ class CardList extends React.Component {
     if (error) {
       return <div>Error: {error.message}</div>;
     } else if (isLoaded) {
+      this.loadList();
       return <div>Loading...</div>;
     } else {
       return (
