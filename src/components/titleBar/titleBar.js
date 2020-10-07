@@ -1,6 +1,7 @@
 import React from 'react';
 import FlashApi from 'api/FlashApi';
 import styles from './titleBar.module.scss';
+import { ReactComponent as Enter } from 'images/enter.svg';
 
 class TitleBar extends React.Component {
   constructor(props) {
@@ -9,6 +10,7 @@ class TitleBar extends React.Component {
     this.handleRemove = this.handleRemove.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleCheck = this.handleCheck.bind(this);
+    this.handleEnter = this.handleEnter.bind(this);
 
     this.state = {
       checked:this.props.checked,
@@ -16,7 +18,9 @@ class TitleBar extends React.Component {
     
   }
   
-
+  handleEnter() {
+    this.props.onEnter();
+  }
   handleClick() {
     this.props.onClick();
   }
@@ -42,6 +46,7 @@ class TitleBar extends React.Component {
     const className = this.state.checked? styles.checked:styles;
     return (
       <div className={className} >
+        <Enter onClick={this.handleEnter}/>
         <input type="checkbox" onChange={this.handleCheck} checked={this.state.checked}/>
         <span onClick={this.handleClick}> {this.props.title}</span>
         <button className={styles.removeButton} onClick={this.handleRemove}>Remove</button>

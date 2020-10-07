@@ -10,7 +10,7 @@ class CardListItem extends React.Component {
     this.handleFocus = this.handleFocus.bind(this);
     this.handleDefocus = this.handleDefocus.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
-    
+    this.handleEnter = this.handleEnter.bind(this);
     
     
     
@@ -20,7 +20,9 @@ class CardListItem extends React.Component {
       isFocused:false
     };
   }
-  
+  handleEnter() {
+    this.props.onEnter(this.props._id);
+  }
   handleFocus() {
     this.setState({isFocused:true});
   }
@@ -50,6 +52,7 @@ class CardListItem extends React.Component {
     if(!this.state.isFocused){
       return (
         <TitleBar
+          onEnter={this.handleEnter}
           onClick={this.handleFocus}
           onCheck={this.handleUpdate}
           onRemove={this.handleRemove}
