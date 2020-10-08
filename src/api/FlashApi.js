@@ -50,6 +50,32 @@ class FlashApi{
     return {result,error};
   }
 
+  //取得路徑上的所有卡
+  static async getPath(_id) {
+    let result = null;
+    let error = null;
+    const data = {_id:_id};
+    await fetch(
+      process.env.REACT_APP_API_HOST+"card/path",
+      {
+        method:'post',
+        headers: new Headers({
+          'Content-Type': 'application/json'
+        }),
+        body:JSON.stringify(data)
+      }
+    )
+      .then(res => res.json())
+      .then(
+        (res) => {
+          result = res;
+        },
+        (err) => {
+          error = err;
+        });
+    return {result,error};
+  }
+
   
   //修改卡片
   static async updateCard(_id,data) {
