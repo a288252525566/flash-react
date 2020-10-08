@@ -1,6 +1,7 @@
 import React from 'react';
 import FlashApi from 'api/FlashApi';
 import CardListItem from 'components/cardListItem/cardListItem';
+import CardListHead from 'components/cardListHead/cardListHead';
 
 class CardList extends React.Component {
   constructor(props) {
@@ -95,7 +96,7 @@ class CardList extends React.Component {
       return <div>Loading...</div>;
     } else {
       return (
-        <div className='listbody'>
+        <div >
           <CardListHead onEnter={this.handleChangeParent} listId={this.state.listId}/>
           {list.map(item => (
             <CardListItem
