@@ -15,7 +15,7 @@ class CardList extends React.Component {
     
 
     this.state = {
-      parent_id:null,
+      listId:null,
       list: [],
       error: null,
       isLoaded:true,
@@ -25,7 +25,7 @@ class CardList extends React.Component {
 
 
   async loadList() {
-    const {result,error} = await FlashApi.getCardList(this.state.parent_id);
+    const {result,error} = await FlashApi.getCardList(this.state.listId);
     if(result) {
       this.setState({
         isLoaded:false,
@@ -41,7 +41,7 @@ class CardList extends React.Component {
   }
 
   async addCard() {
-    const data = {title:this.state.newCardTitle,parent_id:this.state.parent_id};
+    const data = {title:this.state.newCardTitle,parent_id:this.state.listId};
     this.setState({newCardTitle:''});
     const {result,error} = await FlashApi.addCard(data);
     if(result) {
@@ -81,8 +81,8 @@ class CardList extends React.Component {
     });
   }
   
-  handleChangeParent(parent_id) {
-    this.setState({parent_id:parent_id,isLoaded:true});
+  handleChangeParent(listId) {
+    this.setState({listId:listId,isLoaded:true});
   }
 
 
@@ -96,6 +96,7 @@ class CardList extends React.Component {
     } else {
       return (
         <div className='listbody'>
+          <CardListHead onEnter={this.handleChangeParent} listId={this.state.listId}/>
           {list.map(item => (
             <CardListItem
               key={item._id}
