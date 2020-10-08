@@ -22,7 +22,8 @@ class CardListHead extends React.Component {
 
 
   handleEnter(_id) {
-    this.props.onEnter(_id);
+    if(!_id) this.props.onEnter(null);
+    else this.props.onEnter(_id);
   }
 
   render () {

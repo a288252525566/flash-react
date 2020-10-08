@@ -83,6 +83,7 @@ class CardList extends React.Component {
   }
   
   handleChangeParent(listId) {
+    if(listId===this.state.listId) return;
     this.setState({listId:listId,isLoaded:true});
   }
 
