@@ -12,6 +12,7 @@ class CardList extends React.Component {
     this.handleRemove = this.handleRemove.bind(this);
     this.handleUpdateItem = this.handleUpdateItem.bind(this);
     this.handleChangeParent = this.handleChangeParent.bind(this);
+    this.loadList = this.loadList.bind(this);
     
     
 
@@ -98,7 +99,7 @@ class CardList extends React.Component {
     } else {
       return (
         <div >
-          <CardListHead onEnter={this.handleChangeParent} listId={this.state.listId}/>
+          <CardListHead onEnter={this.handleChangeParent} onReload={this.loadList} listId={this.state.listId}/>
           {list.map(item => (
             <CardListItem
               key={item._id}
