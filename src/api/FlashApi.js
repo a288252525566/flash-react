@@ -127,6 +127,32 @@ class FlashApi{
         });
     return {result,error};
   }
+  
+  //從刪除節點底下已經完成的卡片
+  static async removeCompletedCard(nodeId) {
+    let result = null;
+    let error = null;
+    await fetch(
+      process.env.REACT_APP_API_HOST+"card/removecompleted",
+      {
+        method:'post',
+        headers: new Headers({
+          'Content-Type': 'application/json'
+        }),
+        body:JSON.stringify({_id:(nodeId?nodeId:null)})
+      }
+    )
+      .then(res => res.json())
+      .then(
+        (res) => {
+          result = res;
+        },
+        (err) => {
+          error = err;
+        });
+    return {result,error};
+  }
+  
 }
 
 export default FlashApi
