@@ -1,10 +1,10 @@
 import React from 'react';
-import CardList from './components/cardList/cardList';
+import List from 'components/list';
 
 function App() {
   return (
     <div className="App">
-      <CardList/>
+      <List/>
     </div>
   );
 }
