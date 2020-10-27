@@ -1,5 +1,5 @@
 import React from 'react';
-import ListItem from 'components/listItem';
+import ListItem from 'containers/listItem';
 
 
 
