@@ -1,7 +1,7 @@
 import React,{ useState, useRef, useEffect} from 'react';
 import { connect } from 'react-redux'
 import * as actions from 'actions';
-import styles from 'components/listItem.module.scss';
+import styles from './listItem.module.scss';
 import { ReactComponent as Enter } from 'images/enter.svg';
 /**
  * 處理每個cardItem該有的操作
@@ -23,23 +23,43 @@ const ListItem = ({
   onRemove
 }) => {
   const className = isDone? styles.checked:styles;
+  //控制是否render input
   const [isEditing, setIsEditing] = useState(false);
-  const textInput = useRef();
 
-  useEffect(()=>{
-    if(isEditing) {
-      textInput.current.focus();
-      return textInput.current.addEventlistener(()=>{
-        setIsEditing(false);
-      });
-    }
-  },[isEditing]);
+
   const handleToggle = () => {
     onUpdate({isDone:!isDone});
   }
-  const handleUpdate = () => {
-    onUpdate({title:textInput.value});
+  
+  //for input
+  const textInput = useRef();
+  const containDiv = useRef();
+  const [inputText, setInputText] = useState(title);
+  const handleInputChange = event => {
+    setInputText(event.target.value);
   }
+
+  const handleClickOutside = event => {
+    if (containDiv.current && !containDiv.current.contains(event.target)) {
+      setIsEditing(false);
+    }
+  }
+  const handleUpdate = () => {
+    onUpdate({title:inputText});
+    setIsEditing(false);
+  }
+  useEffect(()=>{
+    if(!isEditing) return;
+    textInput.current.focus();
+  },[isEditing]);
+  useEffect(()=>{
+    if(!isEditing) return;
+    document.addEventListener("mousedown", handleClickOutside);
+    return ()=>{
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+  },[isEditing]);
 
   if(!isEditing) {
     return (
@@ -55,8 +75,8 @@ const ListItem = ({
 
   else {
     return (
-      <div >
-        <input ref={textInput} value={title}/>
+      <div ref={containDiv}>
+        <input ref={textInput} value={inputText} onChange={handleInputChange}/>
         <button className={styles.removeButton} onClick={handleUpdate}>Submit</button>
         <button className={styles.removeButton} onClick={()=>{setIsEditing(false)}}>Cancel</button>
       </div>
