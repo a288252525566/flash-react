@@ -75,11 +75,11 @@ const ListItem = ({
 
   else {
     return (
-      <div ref={containDiv}>
+      <form ref={containDiv} onSubmit={handleUpdate}>
         <input ref={textInput} value={inputText} onChange={handleInputChange}/>
-        <button className={styles.removeButton} onClick={handleUpdate}>Submit</button>
+        <button className={styles.removeButton} >Submit</button>
         <button className={styles.removeButton} onClick={()=>{setIsEditing(false)}}>Cancel</button>
-      </div>
+      </form>
     );
   }
 }
