@@ -36,7 +36,7 @@ const NextTodo = ({
 
     //todo children
     FlashApi.getTodoList(todo._id).then(promise=>{
-      setTodoChildren(promise.result);
+      if(promise.result._id && promise.result._id!==todo._id) setTodoChildren(promise.result);
     });
   },[todo]);
   
