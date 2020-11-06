@@ -4,15 +4,15 @@ import ListItem from 'containers/listItem';
 
 
 
-const ListBody = ({cards,children}) => {
+const ListBody = ({todos,children}) => {
   return (
     <div>
-      {cards.map(card=>{
+      {todos.map(todo=>{
         return <ListItem
-          key={card._id}
-          _id={card._id}
-          title={card.title}
-          isDone={card.isDone}
+          key={todo._id}
+          _id={todo._id}
+          title={todo.title}
+          isDone={todo.isDone}
           />
       })}
       {children}

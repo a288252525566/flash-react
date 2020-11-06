@@ -4,14 +4,14 @@ import * as actions from 'actions';
 import styles from './listItem.module.scss';
 import { ReactComponent as Enter } from 'images/enter.svg';
 /**
- * 處理每個cardItem該有的操作
+ * 處理每個todoItem該有的操作
  * 點擊重設nodeid，編輯title、toggle(是否完成)、刪除
  */
 const mapDispatch = (dispatch,ownProps) => {
   return {
     onEnter:()=>{ dispatch(actions.setNodeid(ownProps._id))},
-    onUpdate:(data)=>{dispatch(actions.updateCard(ownProps._id,data))},
-    onRemove:()=>{ dispatch(actions.removeCard(ownProps._id))},
+    onUpdate:(data)=>{dispatch(actions.updateTodo(ownProps._id,data))},
+    onRemove:()=>{ dispatch(actions.removeTodo(ownProps._id))},
   }
 }
 const ListItem = ({

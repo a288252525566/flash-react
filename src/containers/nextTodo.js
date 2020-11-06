@@ -8,12 +8,12 @@ import FlashApi from 'api/FlashApi';
 
 const mapState = state => {
   return {
-    todos:state.list.cards
+    todos:state.list.todos
   }
 }
 
 const mapDispatch = {
-  updateItem:(_id,data)=>{return actions.updateCard(_id,data)},
+  updateItem:(_id,data)=>{return actions.updateTodo(_id,data)},
   enter:actions.setNodeid
 }
 
@@ -35,7 +35,7 @@ const NextTodo = ({
     else setContent(todo.content);
 
     //todo children
-    FlashApi.getCardList(todo._id).then(promise=>{
+    FlashApi.getTodoList(todo._id).then(promise=>{
       setTodoChildren(promise.result);
     });
   },[todo]);

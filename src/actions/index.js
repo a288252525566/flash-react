@@ -5,39 +5,39 @@ import * as actionTypes from 'actions/types';
 
 
 
-//樂觀處理的action有： updateCard,removeCard,removeCompltedCard
+//樂觀處理的action有： updateTodo,removeTodo,removeCompltedTodo
 
 
-export const addCard = (tempid, data) => (dispatch,getState) => {
+export const addTodo = (tempid, data) => (dispatch,getState) => {
   //已經有送過請求就不要再送了
-  if(getState().list.tempCards[tempid]!==undefined) return;
+  if(getState().list.tempTodos[tempid]!==undefined) return;
 
 
-  dispatch({type:actionTypes.ADD_CARD_REQUEST,tempid,data});
-  FlashApi.addCard(data)
+  dispatch({type:actionTypes.ADD_TODO_REQUEST,tempid,data});
+  FlashApi.addTodo(data)
   .then(response => {
     if(response.error) {
-      dispatch({type:actionTypes.ADD_CARD_FAILURE});
+      dispatch({type:actionTypes.ADD_TODO_FAILURE});
       dispatch({type:actionTypes.FETCH_FAILURE,errMessage:response.error.message});
       return;
     }
-    dispatch({type:actionTypes.ADD_CARD_SUCCESS,tempid,data:response.result});
+    dispatch({type:actionTypes.ADD_TODO_SUCCESS,tempid,data:response.result});
   });
 }
 
-export const removeCard = (_id) => (dispatch) => {
-  dispatch({type:actionTypes.REMOVE_CARD,_id});
-  FlashApi.removeCard(_id);
+export const removeTodo = (_id) => (dispatch) => {
+  dispatch({type:actionTypes.REMOVE_TODO,_id});
+  FlashApi.removeTodo(_id);
 }
 
-export const removeCompltedCard = (nodeid) => (dispatch) => {
-  dispatch({type:actionTypes.REMOVE_COMPLITED_CARDS,nodeid});
-  FlashApi.removeCompletedCard(nodeid);
+export const removeCompltedTodo = (nodeid) => (dispatch) => {
+  dispatch({type:actionTypes.REMOVE_COMPLITED_TODOS,nodeid});
+  FlashApi.removeCompletedTodo(nodeid);
 }
 
-export const updateCard = (_id,data) => (dispatch) => {
-  dispatch({type:actionTypes.UPDATE_CARD,_id,data});
-  FlashApi.updateCard(_id,data);
+export const updateTodo = (_id,data) => (dispatch) => {
+  dispatch({type:actionTypes.UPDATE_TODO,_id,data});
+  FlashApi.updateTodo(_id,data);
 }
 
 export const setNodeid = (nodeid) => (dispatch,getState) => {
@@ -47,27 +47,27 @@ export const setNodeid = (nodeid) => (dispatch,getState) => {
 
   //setRequest
   dispatch({type:actionTypes.SET_NODEID,nodeid:nodeid});
-  dispatch({type:actionTypes.FETCH_CARDLIST_REQUEST});
+  dispatch({type:actionTypes.FETCH_TODOLIST_REQUEST});
   dispatch({type:actionTypes.FETCH_PATH_REQUEST});
 
   
-  FlashApi.getCardList(nodeid)
+  FlashApi.getTodoList(nodeid)
   .then(response => {
     //如果已經request別的id，就不幹嘛了了
     if(getState().list.nodeid!==nodeid) return;
     if(response.error) {
-      dispatch({type:actionTypes.FETCH_CARDLIST_FAILURE});
+      dispatch({type:actionTypes.FETCH_TODOLIST_FAILURE});
       dispatch({type:actionTypes.FETCH_FAILURE,errMessage:response.error.message});
       return;
     }
-    dispatch({type:actionTypes.FETCH_CARDLIST_SUCCESS,cards:response.result});
+    dispatch({type:actionTypes.FETCH_TODOLIST_SUCCESS,todos:response.result});
   });
   
 
   //如果是root的話
   const rootPath = {_id:'root',title:'root'};
   if(nodeid==='root') {
-    dispatch({type:actionTypes.FETCH_PATH_SUCCESS,cards:[rootPath]});
+    dispatch({type:actionTypes.FETCH_PATH_SUCCESS,todos:[rootPath]});
   }
   else {
     FlashApi.getPath(nodeid)
@@ -79,7 +79,7 @@ export const setNodeid = (nodeid) => (dispatch,getState) => {
         dispatch({type:actionTypes.FETCH_FAILURE,errMessage:response.error.message});
         return;
       }
-      dispatch({type:actionTypes.FETCH_PATH_SUCCESS,cards:[rootPath,...response.result]});
+      dispatch({type:actionTypes.FETCH_PATH_SUCCESS,todos:[rootPath,...response.result]});
     });
   }
 }

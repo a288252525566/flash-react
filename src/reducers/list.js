@@ -1,14 +1,14 @@
 import * as actionTypes from 'actions/types';
-import cards from 'reducers/card';
-import tempCards from 'reducers/tempCards';
+import todos from 'reducers/todo';
+import tempTodos from 'reducers/tempTodos';
 import path from 'reducers/path';
 
 const list = (
   state = {
-    cards:[],
-    tempCards:{},
+    todos:[],
+    tempTodos:{},
     path:[],
-    isFetchingCards:false,
+    isFetchingTodos:false,
     isFetchingPath:false,
     nodeid:null
   },
@@ -17,36 +17,36 @@ const list = (
     case actionTypes.SET_NODEID:
       return {...state,nodeid:action.nodeid};
 
-    //cards
-    case actionTypes.UPDATE_CARD:
-      return {...state,cards:cards(state.cards,action)};
+    //todos
+    case actionTypes.UPDATE_TODO:
+      return {...state,todos:todos(state.todos,action)};
       
-    case actionTypes.REMOVE_CARD:
-      return {...state,cards:cards(state.cards,action)};
+    case actionTypes.REMOVE_TODO:
+      return {...state,todos:todos(state.todos,action)};
       
-    case actionTypes.REMOVE_COMPLITED_CARDS:
-      return {...state,cards:cards(state.cards,action)};
+    case actionTypes.REMOVE_COMPLITED_TODOS:
+      return {...state,todos:todos(state.todos,action)};
 
-    case actionTypes.FETCH_CARDLIST_REQUEST:
-      return {...state,isFetchingCards:true};
+    case actionTypes.FETCH_TODOLIST_REQUEST:
+      return {...state,isFetchingTodos:true};
 
-    case actionTypes.FETCH_CARDLIST_SUCCESS:
-      return {...state,cards:cards(state.cards,action),isFetchingCards:false};
+    case actionTypes.FETCH_TODOLIST_SUCCESS:
+      return {...state,todos:todos(state.todos,action),isFetchingTodos:false};
 
-    case actionTypes.FETCH_CARDLIST_FAILURE:
-      return {...state,isFetchingCards:false};
+    case actionTypes.FETCH_TODOLIST_FAILURE:
+      return {...state,isFetchingTodos:false};
 
-    case actionTypes.ADD_CARD_FAILURE:
-    case actionTypes.ADD_CARD_REQUEST:
-      //將tempid作為key傳給新的tempCards
-      return {...state,tempCards:tempCards(state.tempCards,action)};
+    case actionTypes.ADD_TODO_FAILURE:
+    case actionTypes.ADD_TODO_REQUEST:
+      //將tempid作為key傳給新的tempTodos
+      return {...state,tempTodos:tempTodos(state.tempTodos,action)};
       
-    case actionTypes.ADD_CARD_SUCCESS:
-      //從tempCards移除指定id、新增至cards
+    case actionTypes.ADD_TODO_SUCCESS:
+      //從tempTodos移除指定id、新增至todos
       return {
         ...state,
-        tempCards:tempCards(state.tempCards,action),
-        cards:cards(state.cards,action)
+        tempTodos:tempTodos(state.tempTodos,action),
+        todos:todos(state.todos,action)
       };
       
 

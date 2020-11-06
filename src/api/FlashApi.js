@@ -1,10 +1,10 @@
 class FlashApi{
   //新增卡片
-  static async addCard(data) {
+  static async addTodo(data) {
     let result = null;
     let error = null;
     await fetch(
-      process.env.REACT_APP_API_HOST+"card/add",
+      process.env.REACT_APP_API_HOST+"todo/add",
       {
         method:'post',
         headers: new Headers({
@@ -25,12 +25,12 @@ class FlashApi{
   }
 
   //取得卡片列表
-  static async getCardList(parent_id) {
+  static async getTodoList(parent_id) {
     let result = null;
     let error = null;
     const data = {parent_id:parent_id};
     await fetch(
-      process.env.REACT_APP_API_HOST+"card/list",
+      process.env.REACT_APP_API_HOST+"todo/list",
       {
         method:'post',
         headers: new Headers({
@@ -56,7 +56,7 @@ class FlashApi{
     let error = null;
     const data = {_id:_id};
     await fetch(
-      process.env.REACT_APP_API_HOST+"card/path",
+      process.env.REACT_APP_API_HOST+"todo/path",
       {
         method:'post',
         headers: new Headers({
@@ -78,12 +78,12 @@ class FlashApi{
 
   
   //修改卡片
-  static async updateCard(_id,data) {
+  static async updateTodo(_id,data) {
     let result = null;
     let error = null;
     data._id=_id;
     await fetch(
-      process.env.REACT_APP_API_HOST+"card/update",
+      process.env.REACT_APP_API_HOST+"todo/update",
       {
         method:'post',
         headers: new Headers({
@@ -104,11 +104,11 @@ class FlashApi{
   }
 
   //刪除卡片
-  static async removeCard(_id) {
+  static async removeTodo(_id) {
     let result = null;
     let error = null;
     await fetch(
-      process.env.REACT_APP_API_HOST+"card/remove",
+      process.env.REACT_APP_API_HOST+"todo/remove",
       {
         method:'post',
         headers: new Headers({
@@ -129,11 +129,11 @@ class FlashApi{
   }
   
   //從刪除節點底下已經完成的卡片
-  static async removeCompletedCard(nodeId) {
+  static async removeCompletedTodo(nodeId) {
     let result = null;
     let error = null;
     await fetch(
-      process.env.REACT_APP_API_HOST+"card/removecompleted",
+      process.env.REACT_APP_API_HOST+"todo/removecompleted",
       {
         method:'post',
         headers: new Headers({
