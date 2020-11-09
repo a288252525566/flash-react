@@ -5,7 +5,7 @@ import * as actionTypes from 'actions/types';
 
 
 
-//樂觀處理的action有： updateTodo,removeTodo,removeCompltedTodo
+//樂觀處理的action有： updateTodo,removeTodo,removeCompletedTodo
 
 
 export const addTodo = (tempid, data) => (dispatch,getState) => {
@@ -30,7 +30,7 @@ export const removeTodo = (_id) => (dispatch) => {
   FlashApi.removeTodo(_id);
 }
 
-export const removeCompltedTodo = (nodeid) => (dispatch) => {
+export const removeCompletedTodo = (nodeid) => (dispatch) => {
   dispatch({type:actionTypes.REMOVE_COMPLITED_TODOS,nodeid});
   FlashApi.removeCompletedTodo(nodeid);
 }

@@ -8,14 +8,14 @@ import ListHead from 'components/listHead';
 const mapState = state=>({list:state.list});
 const mapDispatch = {
   setNodeid: actions.setNodeid,
-  removeCompltedTodo: actions.removeCompltedTodo,
+  removeCompletedTodo: actions.removeCompletedTodo,
   addTodo: actions.addTodo
 }
 
 const List = ({
   list,
   setNodeid,
-  removeCompltedTodo,
+  removeCompletedTodo,
   addTodo
 }) => {
   const textInput = useRef();
@@ -39,7 +39,7 @@ const List = ({
     console.log('Render');
   });
   const handleClean = () => {
-    removeCompltedTodo(list.nodeid);
+    removeCompletedTodo(list.nodeid);
   }
   return (
     <div>
