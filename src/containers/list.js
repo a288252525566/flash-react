@@ -35,9 +35,6 @@ const List = ({
       </form>
     )
   }
-  useEffect(()=>{
-    console.log('Render');
-  });
   const handleClean = () => {
     removeCompletedTodo(list.nodeid);
   }

@@ -68,7 +68,6 @@ const NextTodo = ({
   }
   
 
-  console.log(todoChildren);
   const footer = todoChildren.length ?
   (<div><button onClick={handleEnter}>Enter</button><button onClick={handleDoneClick}>Done</button></div>):
   <button onClick={handleDoneClick}>Done</button>
