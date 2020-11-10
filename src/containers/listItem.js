@@ -21,6 +21,7 @@ const ListItem = ({
   onUpdate,
   onRemove
 }) => {
+
   const className = isDone? styles.checked:styles;
   //控制是否render input
   const [isEditing, setIsEditing] = useState(false);
