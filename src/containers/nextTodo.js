@@ -29,16 +29,21 @@ const NextTodo = ({
   const [todoChildren,setTodoChildren] = useState([]);
   
   const todo = selector.getNextTodo(todos);
+
+  //更新了todos
   useEffect(()=>{
-    //todo content
+    if(!!!todo._id) return;
+    //更新todo content
     if(!!!todo.content) setContent('');
     else setContent(todo.content);
 
     //todo children
     FlashApi.getTodoList(todo._id).then(promise=>{
-      if(promise.result._id && promise.result._id!==todo._id) setTodoChildren(promise.result);
+      if(!!!promise.result.length || promise.result[0].parent_id===todo._id) {
+        setTodoChildren(promise.result);
+      }
     });
-  },[todo]);
+  },[todo._id]);
   
   const handleContentChange = event => {
     setContent(event.target.value);
