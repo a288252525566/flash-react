@@ -4,6 +4,7 @@ import * as actions from 'actions';
 import List from 'containers/list';
 import NextTodo from'containers/nextTodo';
 import { connect } from 'react-redux';
+import Header from 'components/header';
 
 const mapDispatch = {
   setNodeid:actions.setNodeid
@@ -19,6 +20,7 @@ const Plan =  ({setNodeid})=>{
     else setNodeid(nodeid);
   },[nodeid,setNodeid])
   return <div>
+    <Header/>
     <List/>
     <NextTodo/>
   </div>
