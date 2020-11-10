@@ -43,7 +43,7 @@ const NextTodo = ({
         setTodoChildren(promise.result);
       }
     });
-  },[todo._id]);
+  },[todo]);
   
   const handleContentChange = event => {
     setContent(event.target.value);

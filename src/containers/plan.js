@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Route, useParams, useRouteMatch } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 import * as actions from 'actions';
 import List from 'containers/list';
 import NextTodo from'containers/nextTodo';
@@ -17,7 +17,7 @@ const Plan =  ({setNodeid})=>{
   useEffect(()=>{
     if(!!!nodeid) setNodeid('root');
     else setNodeid(nodeid);
-  },[nodeid])
+  },[nodeid,setNodeid])
   return <div>
     <List/>
     <NextTodo/>
