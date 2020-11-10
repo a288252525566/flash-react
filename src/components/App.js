@@ -1,13 +1,13 @@
 import React from 'react';
-import List from 'containers/list';
-import NextTodo from'containers/nextTodo';
+import Plan from'containers/plan';
+import { BrowserRouter , Redirect, Route } from 'react-router-dom';
 
 function App() {
   return (
-    <div className="App">
-      <List/>
-      <NextTodo/>
-    </div>
+    <BrowserRouter className="App">
+      <Route path='/' exact={true}><Redirect to='/plan'/></Route>
+      <Route path='/plan'><Plan/></Route>
+    </BrowserRouter>
   );
 }
 

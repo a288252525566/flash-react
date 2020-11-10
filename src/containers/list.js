@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { connect } from 'react-redux'
 import * as actions from 'actions';
 import ListBody from 'components/listBody';
@@ -7,14 +7,12 @@ import ListHead from 'components/listHead';
 
 const mapState = state=>({list:state.list});
 const mapDispatch = {
-  setNodeid: actions.setNodeid,
   removeCompletedTodo: actions.removeCompletedTodo,
   addTodo: actions.addTodo
 }
 
 const List = ({
   list,
-  setNodeid,
   removeCompletedTodo,
   addTodo
 }) => {
@@ -40,7 +38,7 @@ const List = ({
   }
   return (
     <div>
-      <ListHead setNodeid={setNodeid} onClean={handleClean} path={list.path}/>
+      <ListHead onClean={handleClean} path={list.path}/>
       <ListBody todos={list.todos}>
         <AddTodoForm onSubmit={handleAddTodo}/>
       </ListBody>

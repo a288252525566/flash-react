@@ -1,6 +1,7 @@
 import * as actions from 'actions';
 import * as selector from 'selector';
 import React, { useEffect, useState } from 'react';
+import { Link, useRouteMatch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import FlashApi from 'api/FlashApi';
 
@@ -13,17 +14,16 @@ const mapState = state => {
 }
 
 const mapDispatch = {
-  updateItem:(_id,data)=>{return actions.updateTodo(_id,data)},
-  enter:actions.setNodeid
+  updateItem:(_id,data)=>{return actions.updateTodo(_id,data)}
 }
 
 
 //considered names:todoBox, highlightTodo, taskNow
 const NextTodo = ({
   updateItem,
-  enter,
   todos = []
 }) => {
+  const match = useRouteMatch();
   //nexttodo
   const [content,setContent] = useState('');
   const [todoChildren,setTodoChildren] = useState([]);
@@ -37,7 +37,7 @@ const NextTodo = ({
     if(!!!todo.content) setContent('');
     else setContent(todo.content);
 
-    //todo children
+    //重新fetcht odoChildren
     FlashApi.getTodoList(todo._id).then(promise=>{
       if(!!!promise.result.length || promise.result[0].parent_id===todo._id) {
         setTodoChildren(promise.result);
@@ -53,9 +53,6 @@ const NextTodo = ({
   }
   const handleDoneClick = () => {
     updateItem(todo._id,{idDone:true});
-  }
-  const handleEnter = () => {
-    enter(todo._id);
   }
 
   //progress
@@ -74,7 +71,7 @@ const NextTodo = ({
   
 
   const footer = todoChildren.length ?
-  (<div><button onClick={handleEnter}>Enter</button><button onClick={handleDoneClick}>Done</button></div>):
+  (<div><Link to={match.path+'/'+todo._id} ><button >Enter</button></Link><button onClick={handleDoneClick}>Done</button></div>):
   <button onClick={handleDoneClick}>Done</button>
   return (
     <div>

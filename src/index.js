@@ -9,7 +9,6 @@ import configureStore from './store'
 
 const store = configureStore();
 
-store.dispatch(actions.setNodeid('root'));
 
 ReactDOM.render(
   <Provider store={store}>

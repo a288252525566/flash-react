@@ -3,13 +3,13 @@ import { connect } from 'react-redux'
 import * as actions from 'actions';
 import styles from './listItem.module.scss';
 import { ReactComponent as Enter } from 'images/enter.svg';
+import { Link, useRouteMatch } from 'react-router-dom';
 /**
  * 處理每個todoItem該有的操作
  * 點擊重設nodeid，編輯title、toggle(是否完成)、刪除
  */
 const mapDispatch = (dispatch,ownProps) => {
   return {
-    onEnter:()=>{ dispatch(actions.setNodeid(ownProps._id))},
     onUpdate:(data)=>{dispatch(actions.updateTodo(ownProps._id,data))},
     onRemove:()=>{ dispatch(actions.removeTodo(ownProps._id))},
   }
@@ -18,7 +18,6 @@ const ListItem = ({
   _id,
   title,
   isDone,
-  onEnter,
   onUpdate,
   onRemove
 }) => {
@@ -60,11 +59,12 @@ const ListItem = ({
     }
 
   },[isEditing]);
+  const match = useRouteMatch();
 
   if(!isEditing) {
     return (
       <div className={className} >
-        <Enter onClick={()=>{onEnter(_id);}}/>
+        <Link to={match.path+'/'+_id} ><Enter /></Link>
         <input type="checkbox" onChange={handleToggle} checked={isDone}/>
         <span onClick={()=>{setIsEditing(true)}}> {title}</span>
         <button className={styles.removeButton} onClick={onRemove}>Remove</button>
