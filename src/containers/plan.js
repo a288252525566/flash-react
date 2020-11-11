@@ -1,18 +1,22 @@
 import React, { useEffect } from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import * as actions from 'actions';
-import List from 'containers/list';
-import NextTodo from'containers/nextTodo';
 import { connect } from 'react-redux';
+import PlanBody from 'components/planBody';
 import Header from 'components/header';
 
 const mapDispatch = {
   setNodeid:actions.setNodeid
 }
 
+const mapState = (state) => {
+  return {
+    path:state.list.path
+  }
+}
 
 
-const Plan =  ({setNodeid})=>{
+const Plan =  ({path, setNodeid})=>{
   const match = useRouteMatch();
   const nodeid = useRouteMatch(match.path+'/:nodeid?').params.nodeid;
   useEffect(()=>{
@@ -21,9 +25,8 @@ const Plan =  ({setNodeid})=>{
   },[nodeid,setNodeid])
   return <div>
     <Header/>
-    <List/>
-    <NextTodo/>
+    <PlanBody path={path}/>
   </div>
 }
 
-export default connect(null,mapDispatch)(Plan);
+export default connect(mapState,mapDispatch)(Plan);
