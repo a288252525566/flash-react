@@ -7,9 +7,11 @@
     flex-wrap: wrap;
     flex-direction: row-reverse;
     justify-content: flex-end;
+    .item{
+      display: inline-block;
+    }
   }
   .separator,.item{
-    display:inline-block;
     color:black;
     text-decoration: none;
   }
@@ -22,5 +24,33 @@
   }
   .separator>svg {
     height:8px;
+  }
+  .moreIcon>svg {
+    height: 10px;
+  }
+  .moreIcon_formeasuring {
+    visibility: hidden;
+  }
+  .hiddenMenu {
+    position: absolute;
+    display:inline-block;
+    left: 0;
+    top: 1.5em;
+    max-width:100%;
+    padding-top:8px;
+    padding-bottom: 8px;
+    background:#F5F5F5;
+    border:1px solid #b9b9b9;
+    box-shadow: 2px 4px 6px rgba(0,0,0,0.2);
+    .item {
+      display:block;
+      padding-left:8px;
+      padding-right:16px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      &:hover{
+        background:#D3F1D0;
+      }
+    }
   }
 }
