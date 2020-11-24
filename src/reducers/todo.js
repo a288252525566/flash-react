@@ -41,6 +41,13 @@ const todos = (state = [], action) => {
 
     case actionTypes.FETCH_TODOLIST_SUCCESS:
       return action.todos;
+    
+    case actionTypes.REORDER_TODOS:
+      const result = [...action.todos];
+      const [theItem] = result.splice(action.from,1);
+      result.splice(action.to,0,theItem);
+      console.log(result);
+      return result;
 
     default:
       return state;

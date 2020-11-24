@@ -19,12 +19,9 @@ const list = (
 
     //todos
     case actionTypes.UPDATE_TODO:
-      return {...state,todos:todos(state.todos,action)};
-      
     case actionTypes.REMOVE_TODO:
-      return {...state,todos:todos(state.todos,action)};
-      
     case actionTypes.REMOVE_COMPLITED_TODOS:
+    case actionTypes.REORDER_TODOS:
       return {...state,todos:todos(state.todos,action)};
 
     case actionTypes.FETCH_TODOLIST_REQUEST:

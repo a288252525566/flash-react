@@ -83,3 +83,8 @@ export const setNodeid = (nodeid) => (dispatch,getState) => {
     });
   }
 }
+
+export const reOrderTodos = (todos,from,to) => dispatch =>{
+  dispatch({type:actionTypes.REORDER_TODOS,todos,from,to});
+  FlashApi.updateTodo(todos[from]._id,{order:(to+1)});
+}
