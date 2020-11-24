@@ -1,16 +1,24 @@
-.checked{
+.todoItem{
   position: relative;
-  background:lightgray;
-  &:after{
-    content:'';
-    position: absolute;
-    left:0;
-    top:50%;
-    width:100%;
-    height:1px;
-    background:black;
+  &.checked{
+    background:lightgray;
+    &:after{
+      pointer-events: none;
+      content:'';
+      position: absolute;
+      left:0;
+      top:50%;
+      width:100%;
+      height:1px;
+      background:black;
+    }
+    .removeButton{
+      color:green;
+    }
   }
-  .removeButton{
-    color:green;
+  
+  .dragHandle {
+    padding:0 2px;
+    margin:0 2px;
   }
 }
