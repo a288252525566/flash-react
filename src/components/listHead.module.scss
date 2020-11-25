@@ -1,0 +1,17 @@
+.listHead {
+  display:flex;
+  align-items: center;
+  .title{
+    flex:auto;
+    margin:0;
+    font-size: 20px;
+    font-weight: 100;
+    line-height:24px;
+  }
+  .buttons{
+    flex:unset;
+  }
+  .button{
+    cursor: pointer;
+  }
+}

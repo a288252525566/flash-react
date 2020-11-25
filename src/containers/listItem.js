@@ -4,6 +4,9 @@ import * as actions from 'actions';
 import styles from './listItem.module.scss';
 import { ReactComponent as Enter } from 'images/enter.svg';
 import { ReactComponent as TodoDragHandle } from 'images/todoDragHandle.svg';
+import { ReactComponent as Trash } from 'images/trash.svg';
+import { ReactComponent as SubmitBtn } from 'images/check-circle.svg';
+import { ReactComponent as CancelBtn } from 'images/times-circle.svg';
 import { Link, useRouteMatch } from 'react-router-dom';
 import {Draggable} from 'react-beautiful-dnd';
 
@@ -35,7 +38,6 @@ const ListItem = ({
   }
   
   //for input
-  const textInput = useRef();
   const containDiv = useRef();
   const [inputText, setInputText] = useState(title);
   const handleInputChange = event => {
@@ -53,10 +55,6 @@ const ListItem = ({
   }
   useEffect(()=>{
     if(!isEditing) return;
-    textInput.current.focus();
-  },[isEditing]);
-  useEffect(()=>{
-    if(!isEditing) return;
     document.addEventListener("mousedown", handleClickOutside);
     return ()=>{
       document.removeEventListener("mousedown", handleClickOutside);
@@ -65,36 +63,52 @@ const ListItem = ({
   },[isEditing]);
   const match = useRouteMatch();
 
-  const className = isDone? styles.todoItem+' '+styles.checked:styles.todoItem;
-  if(!isEditing) {
-    return (
-      <Draggable draggableId={_id} index={dragIndex}>
-        { provided => (
-          <div ref={provided.innerRef} {...provided.draggableProps} className={className} >
-            <span className={styles.dragHandle} {...provided.dragHandleProps}><TodoDragHandle/></span>
-            <Link to={match.path+'/'+_id} ><Enter /></Link>
-            <input type="checkbox" onChange={handleToggle} checked={isDone}/>
-            <span onClick={()=>{setIsEditing(true)}}> {title}</span>
-            <button className={styles.removeButton} onClick={onRemove}>Remove</button>
+  const getClassName = () => {
+    let result = styles.todoItem;
+    if(isDone) result += ' '+styles.checked;
+    if(isEditing) result += ' '+styles.edit;
+    return result;
+  }
+  const TitleBar = () => {
+    const textInput = useRef();
+    useEffect(()=>{
+      if(!isEditing) return;
+      textInput.current.focus();
+    },[isEditing]);
+    if(isEditing) return (<form className={styles.titleBar} onSubmit={handleUpdate}>
+      <input ref={textInput} value={inputText} onChange={handleInputChange}/>
+    </form>)
+    else return (<span className={styles.titleBar} onClick={()=>{setIsEditing(true)}}> {title}</span>);
+  }
+  const Buttons = () => {
+    if(isEditing) return (<div>
+        <span className={styles.svgButton} onClick={handleUpdate}><SubmitBtn/></span>
+        <span className={styles.svgButton} onClick={()=>{setIsEditing(false)}}><CancelBtn/></span>
+    </div>);
+    else return (<div> 
+        <span className={styles.removeButton} onClick={onRemove}><Trash/></span>
+        <Link className={styles.enterButton} to={match.path+'/'+_id} ><Enter/></Link>
+    </div>);
+  }
+  return (
+    <Draggable draggableId={_id} index={dragIndex}>
+      { provided => (
+        <div ref={provided.innerRef} {...provided.draggableProps} >
+          <div ref={containDiv} className={getClassName()} >
+            <div className={styles.left}>
+              <span className={styles.dragHandle} {...provided.dragHandleProps}><TodoDragHandle/></span>
+              <input className={styles.checkBox} type="checkbox" onChange={handleToggle} checked={isDone}/>
+              <TitleBar/>
+            </div>
+            <div className={styles.right}>
+              <Buttons/>
+            </div>
           </div>
-        )}
-
-      </Draggable>
-    );
-  }
-
-
-  else {
-    return (
-      <div className={styles.todoItem}>
-        <form ref={containDiv} onSubmit={handleUpdate}>
-          <input ref={textInput} value={inputText} onChange={handleInputChange}/>
-          <button className={styles.removeButton} >Submit</button>
-          <button className={styles.removeButton} onClick={()=>{setIsEditing(false)}}>Cancel</button>
-        </form>
-      </div>
-    );
-  }
+        </div>
+      )}
+    </Draggable>
+  );
 }
+
 
 export default connect(null,mapDispatch)(ListItem);

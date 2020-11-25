@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import * as actions from 'actions';
 import ListBody from 'components/listBody';
 import ListHead from 'components/listHead';
+import AddTodo from 'containers/addtodo';
+import * as styles from './list.module.scss';
 import { DragDropContext } from 'react-beautiful-dnd';
 
 
@@ -43,13 +45,16 @@ const List = ({
     reOrderTodos(list.todos,result.source.index,result.destination.index);
   }
   return (
-    <div>
-      <ListHead onClean={handleClean} path={list.path}/>
+    <div className={styles.list}>
+      <div className={styles.section}>
+        <ListHead title={list.path.length ? list.path[list.path.length-1].title:''} onClean={handleClean} path={list.path}/>
+      </div>
       <DragDropContext onDragEnd={handleDragEnd}>
-        <ListBody todos={list.todos}>
-          <AddTodoForm onSubmit={handleAddTodo}/>
-        </ListBody>
+        <ListBody todos={list.todos}/>
       </DragDropContext>
+      <div className={styles.section}>
+        <AddTodoForm onSubmit={handleAddTodo}/>
+      </div>
     </div>
   );
 }

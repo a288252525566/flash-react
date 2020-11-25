@@ -10,7 +10,7 @@ const PlanBody = ({path}) => {
       <BreadCrumb items={path} />
     </div>
     
-    <div className={styles.item}>
+    <div className={styles.item+' '+styles.noPadding}>
       <List/>
     </div>
 
