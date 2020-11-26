@@ -35,9 +35,7 @@ const Breadcrumb = ({items})=>{
   },[items]);
 
   //re-render之後觸發這個effect然後執行分類
-  useEffect(()=>{
-    splitItems();
-  },[hiddenItems]);
+  useEffect(splitItems,[displayItems.length,hiddenItems.length,items]);
   
 
   //展開折疊的連結
