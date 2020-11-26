@@ -1,4 +1,4 @@
-import * as actions from 'actions';
+import * as actions from 'actions/todo';
 import * as selector from 'selector';
 import React, { useEffect, useState } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';

@@ -1,4 +1,4 @@
-import * as actionTypes from 'actions/types';
+import * as actionTypes from 'actionTypes/todo';
 
 const todo  = (state,action) => {
   switch(action.type) {

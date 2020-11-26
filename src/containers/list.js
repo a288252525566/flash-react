@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { connect } from 'react-redux'
-import * as actions from 'actions';
+import * as actions from 'actions/todo';
 import ListBody from 'components/listBody';
 import ListHead from 'components/listHead';
 import AddTodo from 'containers/addtodo';

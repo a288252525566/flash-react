@@ -1,4 +1,4 @@
-import * as actionTypes from 'actions/types';
+import * as actionTypes from 'actionTypes/todo';
 import todos from 'reducers/todo';
 import tempTodos from 'reducers/tempTodos';
 import path from 'reducers/path';

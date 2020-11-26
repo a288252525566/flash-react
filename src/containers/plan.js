@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useRouteMatch } from 'react-router-dom';
-import * as actions from 'actions';
+import * as actions from 'actions/todo';
 import { connect } from 'react-redux';
 import PlanBody from 'components/planBody';
 import Header from 'components/header';

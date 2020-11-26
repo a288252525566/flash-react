@@ -1,6 +1,6 @@
 import React,{ useState, useRef, useEffect} from 'react';
 import { connect } from 'react-redux'
-import * as actions from 'actions';
+import * as actions from 'actions/todo';
 import styles from './listItem.module.scss';
 import { ReactComponent as Enter } from 'images/enter.svg';
 import { ReactComponent as TodoDragHandle } from 'images/todoDragHandle.svg';
