@@ -3,6 +3,7 @@ import { useRouteMatch } from 'react-router-dom';
 import * as actions from 'actions/todo';
 import { connect } from 'react-redux';
 import PlanBody from 'components/planBody';
+import TodoEditor from 'containers/todoEditor'
 import Header from 'components/header';
 
 const mapDispatch = {
@@ -26,6 +27,7 @@ const Plan =  ({path, setNodeid})=>{
   return <div>
     <Header/>
     <PlanBody path={path}/>
+    <TodoEditor/>
   </div>
 }
 

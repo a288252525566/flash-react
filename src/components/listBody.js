@@ -14,8 +14,11 @@ const ListBody = ({todos,children}) => {
           {todos.map((todo, index) => (
             <ListItem
             dragIndex={index}
+            todo={todo}
             key={todo._id}
             _id={todo._id}
+            parent_id={todo.parent_id}
+            content={todo.content}
             title={todo.title}
             isDone={todo.isDone}
             />
