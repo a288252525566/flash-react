@@ -46,7 +46,6 @@ const todos = (state = [], action) => {
       const result = [...action.todos];
       const [theItem] = result.splice(action.from,1);
       result.splice(action.to,0,theItem);
-      console.log(result);
       return result;
 
     default:
