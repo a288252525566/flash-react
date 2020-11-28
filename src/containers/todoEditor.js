@@ -19,12 +19,12 @@ const mapToDispatch = {
 const EditTodo = ({isEditorDisplay, hideEditor, todo = {}, updateTodo, addTodo}) => {
   const [newTitle, setNewTitle] = useState('');
   const [newContent, setNewContent] = useState('');
-  const [submitId, setSubmitId] = useState('');
+  const [submitId, setSubmitId] = useState('');//submitId用來避免使用者重複submit造成重複新增
   const editorRef = useRef();
   const titleRef = useRef();
   const contentRef = useRef();
 
-  //每次更新todo時
+  //每次換todo時
   useEffect(()=>{
     //如果從undefined變成string會出現警告
     const nt = todo.title? todo.title: '';
@@ -32,7 +32,7 @@ const EditTodo = ({isEditorDisplay, hideEditor, todo = {}, updateTodo, addTodo})
     setNewTitle(nt);
     setNewContent(nc);
     setSubmitId('submitId'+Date.now());
-  },[todo._id])
+  },[todo]);
 
   //每次render都要加上監聽器handleClickOutside
   useEffect(()=>{
@@ -48,13 +48,24 @@ const EditTodo = ({isEditorDisplay, hideEditor, todo = {}, updateTodo, addTodo})
     if(!titleRef.current || !contentRef.current) return;
     if(!todo.title) titleRef.current.focus();
     else contentRef.current.focus();
-  },[todo])
+  },[todo,isEditorDisplay])
 
+  //關閉editor時重設state避免讀取到修改過的資料
+  const resetState = () => {
+    setNewTitle(todo.title);
+    setNewContent(todo.content);
+  }
+  const handleCalcelClick = () => {
+    hideEditor();
+    resetState();
+  }
   const handleClickOutside = event => {
     //關閉editor
     if(editorRef.current && editorRef.current.contains(event.target)) return;
-    hideEditor();
+    handleCalcelClick();
   }
+
+  //state changes
   const handleTitleChange = e => {
     setNewTitle(e.target.value);
   }
@@ -62,6 +73,7 @@ const EditTodo = ({isEditorDisplay, hideEditor, todo = {}, updateTodo, addTodo})
     setNewContent(e.target.value);
   }
   const handleSubmit = (event) => {
+    //如果沒有id就add,有id就update
     event.preventDefault();
     const data = {parent_id:todo.parent_id,title:newTitle,content:newContent};
     if(!todo._id) addTodo(submitId,data);
@@ -69,12 +81,16 @@ const EditTodo = ({isEditorDisplay, hideEditor, todo = {}, updateTodo, addTodo})
     hideEditor();
   }
 
+
+
+
+  //render
   if(!isEditorDisplay) return <div></div>
 
   return (<div id={styles.container}>
     <form onSubmit={handleSubmit} ref={editorRef} id={styles.editor}>
       <input
-        id={styles.titleInput}
+        className={styles.titleInput}
         value={newTitle}
         placeholder='輸入事項的標題...'
         onChange={handleTitleChange}
@@ -90,7 +106,7 @@ const EditTodo = ({isEditorDisplay, hideEditor, todo = {}, updateTodo, addTodo})
 
       <div id={styles.footer}>
         <button id={styles.submitButton}>送出</button>
-        <div id={styles.cancelButton} onClick={hideEditor}>取消</div>
+        <div id={styles.cancelButton} onClick={handleCalcelClick}>取消</div>
       </div>
     </form>
   </div>)
