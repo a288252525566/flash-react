@@ -74,22 +74,24 @@ const EditTodo = ({isEditorDisplay, hideEditor, todo = {}, updateTodo, addTodo})
   return (<div id={styles.container}>
     <form onSubmit={handleSubmit} ref={editorRef} id={styles.editor}>
       <input
-        className={styles.titleInput}
+        id={styles.titleInput}
         value={newTitle}
         placeholder='輸入事項的標題...'
         onChange={handleTitleChange}
         ref={titleRef}/>
 
       <textarea
-        className={styles.contentInput}
+        id={styles.contentInput}
         value={newContent}
         placeholder='輸入事項描述...'
         onChange={handleContentChange}
         ref={contentRef}
         resize='false'/>
 
-      <button>submit</button>
-      <div onClick={hideEditor}>close</div>
+      <div id={styles.footer}>
+        <button id={styles.submitButton}>送出</button>
+        <div id={styles.cancelButton} onClick={hideEditor}>取消</div>
+      </div>
     </form>
   </div>)
 }

@@ -9,25 +9,67 @@
   top:0;
   background:rgba(0,0,0,0.3);
   #editor {
-    width:600px;
+    width:260px;
     max-width:100%;
-    height:600px;
+    height:200px;
     max-height:100%;
     padding:16px;
     background:white;
     border-radius: 8px;
-
-    
   }
-  .titleInput {
+  #titleInput {
     display:block;
     width:100%;
     border:unset;
     background:inherit;
+    font-family: inherit;
     font-size:20px;
+    font-weight: 100;
   }
-  .contentInput {
+  #contentInput {
     display:block;
+    width:100%;
+    min-height:80px;
+    border:unset;
+    font-family: inherit;
+    font-size:16px;
     resize:none;
+  }
+  #titleInput,#contentInput {
+    margin-bottom:8px;
+    border-radius: 4px;
+    &:focus {
+      background:#eee;
+      border:unset;
+      outline: unset;
+      box-shadow: 0px 0px 2px gray;
+    }
+  }
+
+  #footer {
+    display: flex;
+    justify-content: flex-end;
+  }
+  #submitButton {
+    background:#66D63D;
+    border:unset;
+  }
+  #cancelButton {
+    background:#ccc;
+    border:1px solid #aaa;
+  }
+  #submitButton,#cancelButton {
+    cursor: pointer;
+    width:60px;
+    height:28px;
+    margin-left:8px;
+    line-height:28px;
+    text-align: center;
+    font-size:16px;
+    font-weight: 600;
+    color:white;
+    outline:unset;
+    border-radius: 4px;
+
   }
 }
