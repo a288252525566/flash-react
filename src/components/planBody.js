@@ -6,16 +6,20 @@ import styles from './planBody.module.scss';
 
 const PlanBody = ({path}) => {
   return (<div className={styles.planBody}>
-    <div className={styles.item}>
-      <BreadCrumb items={path} />
-    </div>
-    
-    <div className={styles.item+' '+styles.noPadding}>
-      <List/>
+    <div className={styles.column} >
+      <div className={styles.item}>
+        <BreadCrumb items={path} />
+      </div>
+      
+      <div className={styles.item+' '+styles.noPadding}>
+        <List/>
+      </div>
     </div>
 
-    <div className={styles.item}>
-      <NextTodo/>
+    <div className={styles.column} >
+      <div className={styles.item+' '+styles.wide}>
+        <NextTodo/>
+      </div>
     </div>
   </div>)
 }

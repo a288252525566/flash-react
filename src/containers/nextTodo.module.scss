@@ -1,0 +1,69 @@
+#nextTodo {
+  padding:8px 0px;
+}
+#display {
+  width:100%;
+  height:144px;
+  padding:16px;
+  background:#EFFFF8;
+}
+#title {
+  padding:0;
+  margin-top:0;
+  margin-bottom:8px;
+  font-size:20px;
+  font-weight: 100;
+  color:#606060;
+}
+#content {
+  width:100%;
+  height:72px;
+  margin:0;
+  padding:0;
+  background:transparent;
+  border:unset;
+  font-family: inherit;
+  font-size:14px;
+  color:#8A9487;
+  resize:none;
+  &:focus {
+    background:#fffff0;
+    border:unset;
+    outline: unset;
+  }
+}
+#footer {
+  display:flex;
+  align-items: flex-end;
+  margin:8px;
+  height:72px;
+  .button {
+    cursor: pointer;
+    display:inline-block;
+    width:54px;
+    height:22px;
+    margin-right:8px;
+    text-align: center;
+    font-size:14px;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 16px;
+    &:first-child {
+      width:152px;
+      height:44px;
+      font-size:28px;
+    }
+  }
+}
+
+#doneButton {
+  background:#4EB3FF;
+  color:white;
+}
+#enterButton {
+  background:#66D63D;
+  color:white;
+}
+#progress {
+  
+}

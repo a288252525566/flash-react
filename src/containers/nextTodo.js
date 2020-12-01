@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import FlashApi from 'api/FlashApi';
+import * as styles from './nextTodo.module.scss';
 
 
 
@@ -70,18 +71,18 @@ const NextTodo = ({
   }
   
 
-  const footer = todoChildren.length ?
-  (<div><Link to={match.path+'/'+todo._id} ><button >Enter</button></Link><button onClick={handleDoneClick}>Done</button></div>):
-  <button onClick={handleDoneClick}>Done</button>
   return (
-    <div>
-      <p>{todo.title}</p>
-      <textarea value={content} onChange={handleContentChange} onBlur={handleUpdateContent}/>
-      <br/>
-      <button onClick={handleUpdateContent}>Submit</button>
-      <br/>
-      {footer}
-      {completedTodosLength}/{todosLength}
+    <div id={styles.nextTodo}>
+      <div id={styles.display}>
+        <p id={styles.title}>{todo.title}</p>
+        <textarea id={styles.content} value={content} onChange={handleContentChange} onBlur={handleUpdateContent}/>
+      </div>
+
+      <div id={styles.footer}>
+        {todoChildren.length? <Link to={match.path+'/'+todo._id} ><span id={styles.enterButton} className={styles.button}>Enter</span></Link>:null}
+        <span id={styles.doneButton} className={styles.button} onClick={handleDoneClick}>Done</span>
+        {completedTodosLength}/{todosLength}
+      </div>
     </div>
   )
 }
