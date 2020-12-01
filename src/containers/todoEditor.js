@@ -24,6 +24,8 @@ const EditTodo = ({isEditorDisplay, hideEditor, todo = {}, updateTodo, addTodo})
   const titleRef = useRef();
   const contentRef = useRef();
 
+
+
   //每次換todo時
   useEffect(()=>{
     //如果從undefined變成string會出現警告
@@ -34,14 +36,44 @@ const EditTodo = ({isEditorDisplay, hideEditor, todo = {}, updateTodo, addTodo})
     setSubmitId('submitId'+Date.now());
   },[todo]);
 
-  //每次render都要加上監聽器handleClickOutside
+
+
+
+  //關閉editor的監聽器操作
+  const [isMouseDownOutside, setIsmouseDownOutside] = useState(false);
+  const handleMouseDownOutside = event => {
+    //告訴component滑鼠是否在editor以外的地方按下了
+    if(editorRef.current && editorRef.current.contains(event.target)) setIsmouseDownOutside(false);
+    else setIsmouseDownOutside(true);
+  }
+  const handleMouseUpOutside = event => {
+    //如果滑鼠從editor外面按下，並且在editor外面放開，關閉editor
+    if(
+      isMouseDownOutside
+      && editorRef.current
+      && !editorRef.current.contains(event.target)
+    ) handleCancelClick();
+
+    setIsmouseDownOutside(false);
+  }
+  const handleEscDown = event => {
+    if(event.which!==27) return;
+    handleCancelClick();
+  }
   useEffect(()=>{
     if(!editorRef.current) return ;
-    document.addEventListener('click',handleClickOutside);
+    document.addEventListener('keydown',handleEscDown);
+    document.addEventListener('mousedown',handleMouseDownOutside);
+    document.addEventListener('mouseup',handleMouseUpOutside);
     return ()=>{
-      document.removeEventListener('click',handleClickOutside);
+      document.removeEventListener('keydown',handleEscDown);
+      document.removeEventListener('mousedown',handleMouseDownOutside);
+      document.removeEventListener('mouseup',handleMouseUpOutside);
     }
   });
+
+
+  
 
   //如果render成功，需要focus在title input上
   useEffect(()=>{
@@ -50,20 +82,21 @@ const EditTodo = ({isEditorDisplay, hideEditor, todo = {}, updateTodo, addTodo})
     else contentRef.current.focus();
   },[todo,isEditorDisplay])
 
+
+
+
   //關閉editor時重設state避免讀取到修改過的資料
   const resetState = () => {
     setNewTitle(todo.title);
     setNewContent(todo.content);
   }
-  const handleCalcelClick = () => {
+  const handleCancelClick = () => {
     hideEditor();
     resetState();
   }
-  const handleClickOutside = event => {
-    //關閉editor
-    if(editorRef.current && editorRef.current.contains(event.target)) return;
-    handleCalcelClick();
-  }
+
+
+
 
   //state changes
   const handleTitleChange = e => {
@@ -90,6 +123,7 @@ const EditTodo = ({isEditorDisplay, hideEditor, todo = {}, updateTodo, addTodo})
   return (<div id={styles.container}>
     <form onSubmit={handleSubmit} ref={editorRef} id={styles.editor}>
       <input
+        tabIndex={2}
         className={styles.titleInput}
         value={newTitle}
         placeholder='輸入事項的標題...'
@@ -97,6 +131,7 @@ const EditTodo = ({isEditorDisplay, hideEditor, todo = {}, updateTodo, addTodo})
         ref={titleRef}/>
 
       <textarea
+        tabIndex={2}
         id={styles.contentInput}
         value={newContent}
         placeholder='輸入事項描述...'
@@ -105,8 +140,8 @@ const EditTodo = ({isEditorDisplay, hideEditor, todo = {}, updateTodo, addTodo})
         resize='false'/>
 
       <div id={styles.footer}>
-        <button id={styles.submitButton}>送出</button>
-        <div id={styles.cancelButton} onClick={handleCalcelClick}>取消</div>
+        <button tabIndex={2} id={styles.submitButton} className={styles.button}>送出</button>
+        <div tabIndex={2} id={styles.cancelButton} onClick={handleCancelClick} className={styles.button}>取消</div>
       </div>
     </form>
   </div>)
