@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13">
+  <g id="Group_103" data-name="Group 103" transform="translate(-359 -263)">
+    <circle id="Ellipse_43" data-name="Ellipse 43" cx="5.5" cy="5.5" r="5.5" transform="translate(360 264)" fill="#fff"/>
+    <path id="check-circle" d="M21,14.5A6.5,6.5,0,1,1,14.5,8,6.5,6.5,0,0,1,21,14.5Zm-7.252,3.442,4.823-4.823a.419.419,0,0,0,0-.593l-.593-.593a.419.419,0,0,0-.593,0l-3.933,3.933L11.615,14.03a.419.419,0,0,0-.593,0l-.593.593a.419.419,0,0,0,0,.593l2.726,2.726a.419.419,0,0,0,.593,0Z" transform="translate(351 255)" fill="#5bdbc9"/>
+  </g>
+</svg>
