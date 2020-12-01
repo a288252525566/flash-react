@@ -52,7 +52,7 @@ const NextTodo = ({
     updateItem(todo._id,{content});
   }
   const handleDoneClick = () => {
-    updateItem(todo._id,{idDone:true});
+    updateItem(todo._id,{isDone:true});
   }
 
   //progress
