@@ -6,7 +6,7 @@ import styles from './App.module.scss';
 function App() {
   return (
     <div className={styles.App}>
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Route path='/' exact={true}><Redirect to='/plan'/></Route>
         <Route path='/plan'><Plan/></Route>
       </BrowserRouter>
