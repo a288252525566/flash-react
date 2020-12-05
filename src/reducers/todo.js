@@ -3,7 +3,13 @@ import * as actionTypes from 'actionTypes/todo';
 const todo  = (state,action) => {
   switch(action.type) {
     case actionTypes.ADD_TODO_SUCCESS:
-      return {isDone:action.data.isDone,parent_id:action.data.parent_id,_id:action.data._id,title:action.data.title};
+      return {
+        isDone:action.data.isDone,
+        parent_id:action.data.parent_id,
+        _id:action.data._id,
+        title:action.data.title,
+        content:action.data.content
+      };
     case actionTypes.UPDATE_TODO:
       return {...state,...action.data};
     default:
